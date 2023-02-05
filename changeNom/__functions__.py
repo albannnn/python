@@ -17,7 +17,7 @@ def __main__(path,car:list, n = 0):
                     __main__(path + f"/{fichier}", car ,n)
 
 
-def __isRep__(file:str, n = -1):
+def __isRep__(file:str, n = -1): #recursive fonc
     """
     Entrée : file : str : Fichier a tester
     Renvoie True si le fichier testé est un répertoire False sinon
