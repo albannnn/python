@@ -10,14 +10,14 @@ def __main__(path,car:list, n = 0):
         os.chdir(path) #On va dans le repertoire où sont les fichiers
         liste = os.listdir()
         for fichier in liste:
-            if(fichier != f"ticket {str(n)}.{__typeOf__(fichier)}") and (not __carInFile__(fichier, car)) and not(__isRep__(fichier)) : # condition si le ticket existe deja et si la chaine n'est pas dans le fichier
+            if(fichier != f"ticket {str(n)}.{__typeOf__(fichier)}") and (not __carInFile__(fichier, car)) and not(__isDir__(fichier)) : # condition si le ticket existe deja et si la chaine n'est pas dans le fichier
                 os.rename(fichier, f"ticket{n}.{__typeOf__(fichier)}") #nom du nouveau fichier
                 n += 1
-            if __isRep__(fichier):
+            if __isDir__(fichier):
                     __main__(path + f"/{fichier}", car ,n)
 
 
-def __isRep__(file:str, n = -1): #recursive fonc
+def __isDir__(file:str, n = -1): #recursive fonc
     """
     Entrée : file : str : Fichier a tester
     Renvoie True si le fichier testé est un répertoire False sinon
@@ -28,7 +28,7 @@ def __isRep__(file:str, n = -1): #recursive fonc
     if file[n] == '.': #Le fichier n'est pas un répertoire ssi il y a un point dans son nom
         return False
     else:
-        return __isRep__(file, n - 1) #On répéte la fonction à partir de la lettre qui précéde
+        return __isDir__(file, n - 1) #On répéte la fonction à partir de la lettre qui précéde
 
 
 def __carInFile__(file, listCar):
