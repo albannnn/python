@@ -62,4 +62,4 @@ def __typeOf__(file:str):
             i -= 1
         return carFinale
     except IndexError:
-        ("C'est un répertoire!")
+        print("C'est un répertoire!")
