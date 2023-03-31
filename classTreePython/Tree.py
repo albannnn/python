@@ -26,6 +26,7 @@ class Tree:
         * arite()
         * BFS()
         * DFS()
+        * __str__()
 
     """
     def __init__(self, root = None, *children):
