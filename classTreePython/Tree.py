@@ -10,7 +10,7 @@ class Tree:
       
     - Condition : Un arbre est vide si et seulement si la racine est non définie
     
-    - Méthodes(13) : 
+    - Méthodes(1) : 
         * Constructeur - Tree(racine, *children)
         * estVide()
         * estFeuille()
