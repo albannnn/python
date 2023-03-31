@@ -58,6 +58,7 @@ class Tree:
         
     ## Impression
     def __str__(self, level = 0):
+        """ Représentation de l'arbre en ASCII"""
         if self.estVide():
             return ''
         result = ''
