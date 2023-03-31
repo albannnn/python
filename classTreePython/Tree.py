@@ -1,6 +1,33 @@
 ## CLASS TREE
 #extension de la classe BinTree �tous les types d'arbres
 class Tree:
+    """
+    Classe Tree
+    - Attributs :
+        root : La racine root de type N (ou None)
+        *children : les enfants de l'arbre du type Tree
+        Un arbre vide est représenté par un objet dont la racine est None et aucun enfant n'est passé en arguments, c'est à dire qu'il y a au plus 1 argument
+      
+    - Condition : Un arbre est vide si et seulement si la racine est non définie
+    
+    - Méthodes(12) : 
+        * Constructeur - Tree(racine, *children)
+        * estVide()
+        * estFeuille()
+        * racine()
+        * countOfChildren()
+        * getChildren()
+        * getChild()
+        * setChild()
+        * getEtage()
+        * nodeInTree()
+        * hauteur()
+        * taille()
+        * arite()
+        * BFS()
+        * DFS()
+
+    """
     def __init__(self, root = None, *children):
         """
         CONSTRUCTOR        
@@ -92,37 +119,44 @@ class Tree:
         else:
             ListHauteurs = [elt.hauteur() for elt in self.children]
             return max(ListHauteurs) + 1
+         
+    def taille(self):
+        """ Renvoie la taille de l'arbre"""
+        if self.estVide():
+            return 0
+        else:
+            listeTailles = [elt.taille() for elt in self.getChildren()]
+            return 1 + sum(listeTailles)
         
     def arite(self):
         """ Renvoie l'arité de l'arbre (nbre d'enfants max)"""
-        if self.hauteur() == 1:
-            return self.countOfChildren()
+        if self.estFeuille():
+            return 0
         else:
-            ListArite = [elt.arite() for elt in self.getChildren()]  
-            return max(ListArite)      
+            listArite = [elt.arite() for elt in self.getChildren()] #arite de chaque noeuds -> len(l) -> arite du noeud actuel
+            return max(max(listArite), len(listArite))            
     
-    def ariteNoeud(self, node):
-        """ Renvoie l'arite d'1 noeud (enfants du noeuds)"""
-
-        return len(node.children)
     ## Parcours
-arbre = Tree(4, Tree(2, Tree(5),Tree(6),Tree(8), Tree(9)), Tree(22,Tree(8, Tree(6), Tree(10, Tree(3))), Tree(56)))
-print(arbre.arite())
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    def DFS(self):
+        listeFinale = [] #Contiendra les valeurs qui montreront la manière dont le parcours est effectué
+        pile = []
+        pile.append(self)
+        while len(pile) != 0:
+            temp = pile.pop()
+            listeFinale.append(temp.racine())
+            for enfant in temp.getChildren():
+                if not enfant.estVide():
+                    pile.append(enfant)
+        return listeFinale
+    def BFS(self):
+        listeFinale = []
+        fileFIFO = []
+        fileFIFO.insert(0, self)
+        while len(fileFIFO) != 0:
+            temp = fileFIFO.pop()
+            listeFinale.append(temp.racine())
+            for enfant in temp.getChildren():
+                if not enfant.estVide():
+                    fileFIFO.insert(0, enfant)
+        return listeFinale
+arbre = Tree(4, Tree(2, Tree(5),Tree(6),Tree(8), Tree(9), Tree(90)),Tree(12, Tree(25), Tree(32)), Tree(22,Tree(8, Tree(6), Tree(10, Tree(3))), Tree(56))) 
