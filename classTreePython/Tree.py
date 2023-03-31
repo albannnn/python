@@ -55,7 +55,16 @@ class Tree:
         
         #Axiome
         assert self.estVide() == (self.root == None), "Un arbre non vide a une racine"
-    
+        
+    ## Impression
+    def __str__(self, level = 0):
+        if self.estVide():
+            return ''
+        result = ''
+        result += '  ' * level + '|' + str(self.racine()) + '\n'
+        for child in self.getChildren():
+            result += child.__str__(level+1)
+        return result
     
     ## Méthodes
     def estVide(self):
@@ -63,16 +72,19 @@ class Tree:
         return (self.root == None) and (len(self.children) == 0)
     
     def estFeuille(self):
+        """ Renvoie True si l'arbre est une feuille False sinon (un arbre ne contenant qu'un seul noeud est une feuille)"""
         return self.getChildren()[0].estVide() #un arbre ayant une feuille a au minimum un enfant
     
     def racine(self):
+        """ Renvoie la valeur de la racine""" 
         return self.root
     
     def countOfChildren(self):
-        """ renvoie le nbre d'enfants"""
+        """ renvoie le nombre d'enfants"""
         return len(self.children)
             
     def getChildren(self):
+        """ Renvoie la liste des enfants si il y en a, un arbre vide sinon"""
         if self.countOfChildren() != 0:
             return self.children
         else:
@@ -87,6 +99,7 @@ class Tree:
                 return None
         
     def setChild(self, index, value):
+        """ Ne renovie rien, change la valeur d'un enfant de l'arbre"""
         if not self.children[index].estVide():
             self.children[index] = value
     
@@ -99,7 +112,7 @@ class Tree:
             return [child.getEtage(n - 1) for child in self.getChildren()]
         
     def nodeInTree(self, node):
-        
+        """ Renvoie True si `node` est dans l'arbre False sinon"""
         assert type(node) is Tree or type(node) is not None, "L'objet en args doit être un arbre"
         if self.estVide():
             return False
@@ -112,6 +125,7 @@ class Tree:
     ## Mesures
 
     def hauteur(self):
+        """ Renvoie la hauteur de l'arbre """
         if self.estVide():
             return -1
         if self.estFeuille():
@@ -138,6 +152,7 @@ class Tree:
     
     ## Parcours
     def DFS(self):
+        """ Renvoie une liste du parcours en profondeur de l'arbre `Depth First Search` """
         listeFinale = [] #Contiendra les valeurs qui montreront la manière dont le parcours est effectué
         pile = []
         pile.append(self)
@@ -149,6 +164,7 @@ class Tree:
                     pile.append(enfant)
         return listeFinale
     def BFS(self):
+        """ Renvoie une liste du parcours en largeur de l'arbre `Breadth First Search` """
         listeFinale = []
         fileFIFO = []
         fileFIFO.insert(0, self)
