@@ -175,4 +175,7 @@ class Tree:
                 if not enfant.estVide():
                     fileFIFO.insert(0, enfant)
         return listeFinale
+    
+# Exemple d'arbre
 arbre = Tree(4, Tree(2, Tree(5),Tree(6),Tree(8), Tree(9), Tree(90)),Tree(12, Tree(25), Tree(32)), Tree(22,Tree(8, Tree(6), Tree(10, Tree(3))), Tree(56))) 
+print(arbre)
