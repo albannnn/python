@@ -10,7 +10,7 @@ class Tree:
       
     - Condition : Un arbre est vide si et seulement si la racine est non définie
     
-    - Méthodes(12) : 
+    - Méthodes(13) : 
         * Constructeur - Tree(racine, *children)
         * estVide()
         * estFeuille()
@@ -19,6 +19,7 @@ class Tree:
         * getChildren()
         * getChild()
         * setChild()
+        * setracine()
         * getEtage()
         * nodeInTree()
         * hauteur()
@@ -101,10 +102,13 @@ class Tree:
                 return None
         
     def setChild(self, index, value):
-        """ Ne renovie rien, change la valeur d'un enfant de l'arbre"""
+        """ Ne renovie rien, change la valeur d'un enfant de l'arbre """
         if not self.children[index].estVide():
             self.children[index] = value
-    
+            
+    def setRacine(self, value):
+        """ Change la valeur de la racine, Ne renvoie rien """
+        self.root = value
     
     def getEtage(self, n:int)->list:
         """ Renvoie une liste des enfants de l'arbre à l'étage donné """
@@ -114,7 +118,7 @@ class Tree:
             return [child.getEtage(n - 1) for child in self.getChildren()]
         
     def nodeInTree(self, node):
-        """ Renvoie True si `node` est dans l'arbre False sinon"""
+        """ Renvoie True si `node` est dans l'arbre False sinon """
         assert type(node) is Tree or type(node) is not None, "L'objet en args doit être un arbre"
         if self.estVide():
             return False
@@ -137,7 +141,7 @@ class Tree:
             return max(ListHauteurs) + 1
          
     def taille(self):
-        """ Renvoie la taille de l'arbre"""
+        """ Renvoie la taille de l'arbre """
         if self.estVide():
             return 0
         else:
@@ -145,7 +149,7 @@ class Tree:
             return 1 + sum(listeTailles)
         
     def arite(self):
-        """ Renvoie l'arité de l'arbre (nbre d'enfants max)"""
+        """ Renvoie l'arité de l'arbre (nbre d'enfants max) """
         if self.estFeuille():
             return 0
         else:
