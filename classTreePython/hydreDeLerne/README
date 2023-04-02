@@ -8,5 +8,9 @@
         - abandonner()
         -état de l'hydre : etat()
         -visualiser l'hydre : visualiser()
-        *** cachée *** -> devenir Hercule
-    Attention, a chaque coup d'épée qui tranche une tête à l'Hydre De Lerne, toutes les têtes coupées repoussent d'une certaine manière, en effet les têtes présentes sur la branche que vous venez de tuer
+        
+    Attention, a chaque coup d'épée qui tranche une tête à l'Hydre De Lerne, toutes les têtes coupées repoussent d'une certaine manière,
+    en effet les têtes présentes sur la branche que vous venez de couper repoussent toutes à partir du noeud précédent, de plus, 
+    plus vous mettez de coups à l'hydre plus le nombre de têtes qui repoussent à chaque fois est élevé.
+    
+    indice : Aidez vous des maths
