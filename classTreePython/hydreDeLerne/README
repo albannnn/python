@@ -4,8 +4,9 @@
     Cette hydre, à vous de l'affronter aujourd'hui !
     Pour la tuer il ne doit rester aucune tête, en êtes vous capables?
     Vous disposez de plusieurs méthodes pour tuer l'hydre:
-        - Couper une tête : couper(tete), dans le cas où la branche contient plusieurs têtes -> elles repoussent toutes
+        - Couper une tête : couper(tete), dans le cas où la branche contient plusieurs têtes -> elles sont toutes coupées
         - abandonner()
         -état de l'hydre : etat()
         -visualiser l'hydre : visualiser()
         *** cachée *** -> devenir Hercule
+    Attention, a chaque coup d'épée qui tranche une tête à l'Hydre De Lerne, toutes les têtes coupées repoussent d'une certaine manière, en effet les têtes présentes sur la branche que vous venez de tuer
