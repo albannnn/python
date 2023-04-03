@@ -63,7 +63,8 @@ class Tree:
 
         # Axiome
         assert self.estVide() == (self.root == None), "Un arbre non vide a une racine"
-
+    #Redéfinition de la superiorité -> relation d'ordre des arbres
+    ##A FAIRE
     # Impression
     def __str__(self, level=0):
         """ Représentation de l'arbre """
