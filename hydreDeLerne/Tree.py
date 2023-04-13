@@ -73,15 +73,15 @@ class Tree:
         assert self.estVide() == (self.root == None), "Un arbre non vide a une racine"
 
     # Impression
-    def __str__(self, level=0):
+    def __str__(self, etage=0):
         """ Représentation de l'arbre """
         if self.estVide():
             return ''
         result = ''
-        result += '  ' * level + '|' + str(self.racine()) + '\n'
+        result += '  ' * etage + '|' + str(self.racine()) + '\n'
         for child in self.getChildren():
             
-            result += child.__str__(level+1)
+            result += child.__str__(etage+1)
         return result
     
 
