@@ -57,8 +57,8 @@ class Tree:
         """
         
         # Pré-condition : tous les enfants doivent être des arbres
-        for child in children:
-            assert (isinstance(child, type(self)) or child ==  None), f"{child} doit être un Tree ou None"
+        #for child in children:
+        #   assert (type(child) == type(self) or child ==  None), f"{child} doit être un Tree ou None"
         # Pré-condition : Une valeur ne peut se trouver 2 fois dans l'arbre
         
         
@@ -80,6 +80,7 @@ class Tree:
         result = ''
         result += '  ' * level + '|' + str(self.racine()) + '\n'
         for child in self.getChildren():
+            
             result += child.__str__(level+1)
         return result
     
@@ -165,7 +166,7 @@ class Tree:
 
     def nodeInTree(self, node):
         """ Renvoie True si `node` est dans l'arbre False sinon"""
-        assert type(node) is Tree or type(
+        assert type(node) is type(self) or type(
             node) is not None, "L'objet en args doit être un arbre"
         if self.estVide():
             return False

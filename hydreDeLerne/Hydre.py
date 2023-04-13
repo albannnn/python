@@ -2,7 +2,7 @@ from Tree import Tree #import de la classe Tree
 import random
 class Hydre(Tree):
     """
-    Hercule à du affronter lors de son deuxieme travail l'Hydre de Lerne. 
+    Hercule à du affronter lors du deuxieme de ses douzes travaux l'Hydre de Lerne. 
     Cette hydre, à vous de l'affronter aujourd'hui !
     Pour la tuer il ne doit rester aucune tête, en êtes vous capables?
     Vous disposez de plusieurs méthodes pour tuer l'hydre:
@@ -11,16 +11,17 @@ class Hydre(Tree):
         - Pour visualiser l'hydre : print()
         
     """
-    def __init__(self, racine = None, *voisins):
-        Tree.__init__(self, racine, voisins)
+    def __init__(self, racine = None, *children):
+        Tree.__init__(self, racine, *children)
         
         self.nombreTetes = 9
         self.role = "utilisateur"
         self.nombreCoups = 0
-        
 
+    
+    
     def testVictoire(self):
-        """ Renvoie True si l'hydre n'a plus de têtes (si elle morte ...) """
+        """ Renvoie True si l'hydre n'a plus de têtes (si elle morte ...) """ 
         for child in self.getChildren():
             if not child.estVide():
                 return False
@@ -47,8 +48,11 @@ class Hydre(Tree):
             self.nbreTetes = 0
             self.etat = "dead"
             return self
-        ## Si la tete est rattaché au corps, alors elle est coupée définitivement
-        if tete.parent().racine() == self.racine():
+        # Si la tete est la racine de l'arbre -> on ne peut pas la couper
+        if tete.racine() == self.racine():
+            return "Vous ne pouvez pas couper le corps de l'hydre"
+        # Si la tete est rattaché au corps, alors elle est coupée définitivement
+        if self.parent(tete).racine() == self.racine():
             for i in range(len(self.getChildren())):
                 if self.getChildren()[i] == tete:
                     self.setChild(Hydre(), i)
@@ -78,24 +82,33 @@ class Hydre(Tree):
                 self.nbreTetes += nbreEnfants #ajout du nombre de tetes qu'on rajoute aux nombre de tetes totales
             #Arbre.renommer() créer une méthode pour renommer tous les noeuds de l'arbre
         
-        def renommer(self):
-            index = 1
-            pile = []
-            pile.append(self)
-            while len(pile) != 0:
-                if pile[-1].estFeuille(): #si c'est une feuille on renomme avec le numéro de tête
-                    pile[-1].setRacine(f"Tête {index}") 
-                    index += 1
-                else:
-                    pile[-1].setRacine(f"cou") #si c'est autre chose qu'une feuille, c'est un cou ou la racine -> on etudiera le dernier cas + tard
-                for enfant in pile[-1].pop().getChildren(): #parcours dfs
-                    if not enfant.estVide():
-                        pile.append(enfant)
-            self.setRacine("corps") #on gére le cas de la racine, cette derniere prendra la valuer 'cou' or c'est le corps de l'hydre
+    def rename(self):
+        """ Renommage de l'hydre """
+        index = 1
+        pile = []
+        pile.append(self)
+        while len(pile) != 0:
+            if pile[-1].estFeuille(): #si c'est une feuille on renomme avec le numéro de tête
+                pile[-1].setRacine(f"Tête {index}") 
+                index += 1
+            else:
+                pile[-1].setRacine(f"cou") #si c'est autre chose qu'une feuille, c'est un cou ou la racine -> on etudiera le dernier cas + tard
+            for enfant in pile.pop().getChildren(): #parcours dfs
+                if not enfant.estVide():
+                    pile.append(enfant)
+        self.setRacine("corps") #on gére le cas de la racine, cette derniere prendra la valuer 'cou' or c'est le corps de l'hydre
     
     def devenirHercule(self):
         self.role = "Hercule"
         print("Vous avez reçu un arc et une massue.")
         return None
+    
+
+tree = Tree(4)
+hydre = Hydre(4, Hydre(2, Hydre(5), Hydre(6), Hydre(8), Hydre(9), Hydre(90)), Hydre(
+    12, Hydre(25), Hydre(32)), Hydre(22, Hydre(88, Hydre(66), Hydre(10, Hydre(3))), Hydre(56)))
 
 
+
+hydre.couper(Hydre(22, Hydre(88, Hydre(66), Hydre(10, Hydre(3))), Hydre(56)))
+print(hydre)
