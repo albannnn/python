@@ -15,3 +15,12 @@ Plusieurs projets en cours :
 * HydreDeLerne (jeu en cours de dévellopement -> actuellement, interface graphique)
 
 
+Prochainement
+-
+* class Arithmetique (outils d'arithmetique)
+** Congruences
+** divisibilité
+** PGCD
+* class Matrice (implémentation de matrice en python)
+
+
