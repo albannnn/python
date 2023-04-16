@@ -18,9 +18,8 @@ Plusieurs projets en cours :
 Prochainement
 -
 * class Arithmetique (outils d'arithmetique)
-** Congruences
-** divisibilité
-** PGCD
+* Congruences
+divisibilité, PGCD
 * class Matrice (implémentation de matrice en python)
 
 
