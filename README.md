@@ -18,7 +18,7 @@ Plusieurs projets en cours :
 Prochainement
 -
 * class Arithmetique (outils d'arithmetique -> Congruences, 
-Divisibilité, PGCD)
-* class Matrice (implémentation de matrice en python)
+Divisibilité, PGCD et autres)
+* class Matrice (implémentation de matrice -> Diagonalisation, Identité, Déterminant et autres) 
 
 
