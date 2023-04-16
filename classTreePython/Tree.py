@@ -10,7 +10,7 @@ class Tree:
       
     - Condition : Un arbre est vide si et seulement si la racine est non définie
     
-    - Méthodes(20) : 
+    - Méthodes(23) : 
         * Constructeur - Tree(racine, *children)
         * estVide()
         * estFeuille()
@@ -19,11 +19,14 @@ class Tree:
         * getChildren()
         * getChildrenRacines()
         * getChild()
+        * getChildIndex()
         * setChild()
         * delChild()
+        * delChildIndex()
         * setRacine()
-        * getEtage()
+        * getEtage() -> WIP
         * nodeInTree()
+        * trouveParent()
         * parent()
         * hauteur()
         * taille()
@@ -32,13 +35,17 @@ class Tree:
         * DFS()
         * __str__()
     
-    - Surcharge de plusieurs opérateurs :
-        * objet(arbre) >= b -> Renvoie taille(a) >= b 
-        * objet(arbre) <= b -> Renvoie taille(a) <= b
+    - Surcharge de plusieurs opérateurs(6) :
+        * objet(arbre) >= b -> Renvoie taille(arbre) >= b 
+        * objet(arbre) <= b -> Renvoie taille(arbre) <= b
+        * objet(arbre) < b -> renvoie taille(arbre) < b
+        * objet(arbre) > b -> renvoie taille(arbre) > b
+        * objet(arbre) == val:type(val)=Any -> Renvoie racine(arbre) == val
         * objet(arbre1) == objet(arbre2) -> Renvoie True si tous les noeuds sont les mêmes
+        * objet(arbre) != val:type(val)=Any -> Renvoie racine(arbre) != val
         * objet(arbre1) != objet(arbre2) -> Renvoie True si des noeuds sont différents
-
-
+        !! Problème rencontré lors de la surcharge de __eq__() -> Tree(n) in instance(Tree) -> False meme si Tree est bien présent dans l'arbre -> WIP 
+        !! Pour remédier au problème -> surcharger un autre opérateur qui n'influe pas le '=='.
     """
 
     def __init__(self, root=None, *children):
@@ -179,7 +186,7 @@ class Tree:
         """ Change la valeur de la racine, Ne renvoie rien"""
         self.root = value
 
-    def Etage(self, n: int) -> list:
+    def getEtage(self, n: int) -> list:
         """ Renvoie une liste des enfants de l'arbre à l'étage donné """
         if n == 0:
             return self
