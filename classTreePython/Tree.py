@@ -101,7 +101,7 @@ class Tree:
     
     
     #Ordre de grandeur 
-    def __eq__(self, val):
+    def __or__(self, val):
         """ 2 objets arbres sont égaux lorsque ils ont les memes enfant, la meme racine"""
         assert type(val) == type(self), 'Vous devez comparer 2 objets du meme type'
         if (self.racine() != val.racine()) or \
