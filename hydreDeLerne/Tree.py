@@ -10,7 +10,7 @@ class Tree:
       
     - Condition : Un arbre est vide si et seulement si la racine est non définie
     
-    - Méthodes(20) : 
+    - Méthodes(23) : 
         * Constructeur - Tree(racine, *children)
         * estVide()
         * estFeuille()
@@ -37,7 +37,7 @@ class Tree:
         * objet(arbre) <= b -> Renvoie taille(a) <= b
         * objet(arbre1) == objet(arbre2) -> Renvoie True si tous les noeuds sont les mêmes
         * objet(arbre1) != objet(arbre2) -> Renvoie True si des noeuds sont différents
-
+        
 
     """
 
@@ -72,21 +72,40 @@ class Tree:
         # Axiome
         assert self.estVide() == (self.root == None), "Un arbre non vide a une racine"
 
-    # Impression
-    def __str__(self, etage=0):
+    # Impressions
+    def __str__(self, level=0):
         """ Représentation de l'arbre """
         if self.estVide():
             return ''
         result = ''
-        result += '  ' * etage + '|' + str(self.racine()) + '\n'
+        result += '  ' * level + '|' + str(self.racine()) + '\n' + '  ' * level + '|\n'
         for child in self.getChildren():
             
-            result += child.__str__(etage+1)
+            result += child.__str__(level+1)
         return result
     
-
+    
     #Ordre de grandeur 
-
+    def __eq__(self, val):
+        """ 2 objets arbres sont égaux lorsque ils ont les memes enfant, la meme racine"""
+        if type(self) != type(val):
+            return False
+        
+        if (self.racine() != val.racine()) or \
+            (len(self.getChildren()) != len(val.getChildren())):
+            return False
+        if self.estVide() and val.estVide():
+            return True
+        else:
+            if self.racine() == val.racine():
+                list = [self.getChildren()[i] == val.getChildren()[i] for i in range(len(self.getChildren()))]
+                if False in list:
+                    return False
+                return True
+            
+    def __ne__(self, val):
+        return not self.__eq__(val)
+        
     def __lt__(self, val):
         return self.taille() < val
     def __gt__(self, val):
@@ -140,19 +159,24 @@ class Tree:
 
     def setChild(self, value, index = -1):
         """ Ne renvoie rien, change la valeur d'un enfant de l'arbre à l'indiex indiqué"""
-        assert type(value) == type(self)(), 'Vous devez mettre un arbre comme valeur'        
-        if (index > (len(self.getChildren()) - 1)) or (index == -1):
+        assert type(value) == type(self), 'Vous devez mettre un arbre comme valeur'        
+        if index == 'append':
             self.children.append(value)
         else:
-            self.children[index] == value
+            self.children[index] = value
 
     def delChild(self, delete):
         """ Supprime un enfant de l'arbre passé en args"""
         assert self.nodeInTree(delete), "Pour supprimer un enfant, il doit être dans l'arbre"
-        for i in range(len(children := self.getChildren())):
-            if children[i] == delete:
-                children[i] == type(self)()
-        
+        for i in range(len(self.getChildren())):
+            if self.children[i] == delete:
+                self.children[i] = type(self)()
+
+    def delChildIndex(self, index):
+        try:
+            self.children[index] == type(self)()
+        except:
+            pass
     def setRacine(self, value):
         """ Change la valeur de la racine, Ne renvoie rien"""
         self.root = value
@@ -160,37 +184,37 @@ class Tree:
     def getEtage(self, n: int) -> list:
         """ Renvoie une liste des enfants de l'arbre à l'étage donné """
         if n == 0:
-            return self.racine()
+            return self
         else:
-            return [child.getEtage(n - 1) for child in self.getChildren()]
-
+            List = []
+            for i in range(len(self.getChildren())):
+                List.append(self.getChildren()[i].getEtage(n - 1))
+                return List 
+    
     def nodeInTree(self, node):
-        """ Renvoie True si `node` est dans l'arbre False sinon"""
-        assert type(node) is type(self) or type(
-            node) is not None, "L'objet en args doit être un arbre"
+        """ Renvoie True si `node` est dans l'arbre False sinon
+            node -> objet arbre ; composé du noeud de l'arbre et ses enfants
+        """
+        assert type(node) is type(self) or type(node) is not None, "L'objet en args doit être un arbre"
         if self.estVide():
             return False
         if (self.racine() == node.racine()) and (node.getChildrenRacines() == self.getChildrenRacines()):
             return True
         else:
-            ListValues = [elt.nodeInTree(node) for elt in self.children]
-            return (True in ListValues)
-
+            return (True in [elt.nodeInTree(node) for elt in self.children])
+        
     def parent(self, node):
-        """ Retourne le parent du noeud en args si il est dans l'arbre False sinon ou si c'est la racine de l'arbre"""
-        if not self.nodeInTree(node):  # Si le noeud n'est pas dans l'arbre, alors il ne peut avoir de parents
+        """ Renvoie le parent du noeud en args"""
+        if self.estVide():
             return False
-        if self.estFeuille() or (node == self): #si les 2 arbres sont les mêmes ou si l'arbre principal est une feuille -> pas d'enfants
+        if not self.nodeInTree(node):
             return False
-        # récupération de tous les enfants du noeuds principal
-        listeNodes = [nodeFromList for nodeFromList in self.getChildren()]
-        if node in listeNodes:  # Si le noeud recherché est dans la liste d'enfant, alors on est bien le noeud parent
+        if node in self.getChildren():
             return self
         else:
-            for nodeFromList in listeNodes:  # Parcours de la liste contenant les noeuds
-                temp = nodeFromList.parent(node)  # Appel récursif
-                if not temp:
-                    return temp
+            for enfant in [elt.parent(node) for elt in self.getChildren()]:
+                if enfant is not False:
+                    return enfant                   
     # Mesures
 
     def hauteur(self):
