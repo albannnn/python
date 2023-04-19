@@ -9,9 +9,7 @@ class Tree:
         Un arbre vide est représenté par un objet dont la racine est None et aucun enfant n'est passé en arguments, c'est à dire qu'il y a au plus 1 argument
       
     - Condition : Un arbre est vide si et seulement si la racine est non définie
-    -setter/getter(2) :
-        * WIP setter racine
-        * WIP setter children
+    
     - Méthodes(23) : 
         * Constructeur - Tree(racine, *children)
         * estVide()
@@ -21,14 +19,11 @@ class Tree:
         * getChildren()
         * getChildrenRacines()
         * getChild()
-        * getChildIndex()
         * setChild()
         * delChild()
-        * delChildIndex()
         * setRacine()
-        * getEtage() -> WIP
+        * getEtage()
         * nodeInTree()
-        * trouveParent()
         * parent()
         * hauteur()
         * taille()
@@ -37,23 +32,13 @@ class Tree:
         * DFS()
         * __str__()
     
-    - Surcharge de plusieurs opérateurs(6) :
-        * objet(arbre) >= b -> Renvoie taille(arbre) >= b 
-        * objet(arbre) <= b -> Renvoie taille(arbre) <= b
-        * objet(arbre) < b -> renvoie taille(arbre) < b
-        * objet(arbre) > b -> renvoie taille(arbre) > b
-        * objet(arbre) == val:type(val)=Any -> Renvoie racine(arbre) == val
+    - Surcharge de plusieurs opérateurs :
+        * objet(arbre) >= b -> Renvoie taille(a) >= b 
+        * objet(arbre) <= b -> Renvoie taille(a) <= b
         * objet(arbre1) == objet(arbre2) -> Renvoie True si tous les noeuds sont les mêmes
-        * objet(arbre) != val:type(val)=Any -> Renvoie racine(arbre) != val
         * objet(arbre1) != objet(arbre2) -> Renvoie True si des noeuds sont différents
-        !! Problème rencontré lors de la surcharge de __eq__() -> Tree(n) in instance(Tree) -> False meme si Tree est bien présent dans l'arbre -> WIP 
-        !! Pour remédier au problème -> surcharger un autre opérateur qui n'influe pas le '=='.
-    - classmethod(0):
-        !! WIP
-    - staticmethod(0):
-        !! WIP
-    
-      
+        
+
     """
 
     def __init__(self, root=None, *children):
@@ -101,9 +86,11 @@ class Tree:
     
     
     #Ordre de grandeur 
-    def __or__(self, val):
+    def __eq__(self, val):
         """ 2 objets arbres sont égaux lorsque ils ont les memes enfant, la meme racine"""
-        assert type(val) == type(self), 'Vous devez comparer 2 objets du meme type'
+        if type(self) != type(val):
+            return False
+        
         if (self.racine() != val.racine()) or \
             (len(self.getChildren()) != len(val.getChildren())):
             return False
@@ -200,36 +187,34 @@ class Tree:
             return self
         else:
             List = []
-            for i in range(len(self.getCHildren())):
-                List += self.getChildren()[i].getEtage(n - 1)
+            for i in range(len(self.getChildren())):
+                List.append(self.getChildren()[i].getEtage(n - 1))
                 return List 
     
     def nodeInTree(self, node):
-        """ Renvoie True si `node` est dans l'arbre False sinon"""
-        assert type(node) is type(self) or type(
-            node) is not None, "L'objet en args doit être un arbre"
+        """ Renvoie True si `node` est dans l'arbre False sinon
+            node -> objet arbre ; composé du noeud de l'arbre et ses enfants
+        """
+        assert type(node) is type(self) or type(node) is not None, "L'objet en args doit être un arbre"
         if self.estVide():
             return False
         if (self.racine() == node.racine()) and (node.getChildrenRacines() == self.getChildrenRacines()):
             return True
         else:
-            ListValues = [elt.nodeInTree(node) for elt in self.children]
-            return (True in ListValues)
+            return (True in [elt.nodeInTree(node) for elt in self.children])
         
-    def trouveParent(self, etageEnfant, node):
-        """ Renvoie le parent de l'enfant lorsqu'on connait l'etage de l'enfant """
-        if self.nodeInTree(node):
-            for elt in self.getEtage(etageEnfant - 1):
-                if node in elt.getChildren():
-                    return elt
-         
     def parent(self, node):
-        """ Retourne le parent du noeud en args, False si c'est la racine de l'arbre ou si il n'est pas dans l'arbre """
-        assert self.nodeInTree(node), "Le noeud donné doit être dans l'arbre"
-        for i in range(1, self.hauteur()):
-            if node in self.getEtage(i):
-                return self.trouveParent(i, node)
-        #Un cas seulement n'a pas été traité, c'est celui de lma raicne, or la racine n'a pas de parents donc False
+        """ Renvoie le parent du noeud en args"""
+        if self.estVide():
+            return False
+        if not self.nodeInTree(node):
+            return False
+        if node in self.getChildren():
+            return self
+        else:
+            for enfant in [elt.parent(node) for elt in self.getChildren()]:
+                if enfant is not False:
+                    return enfant                   
     # Mesures
 
     def hauteur(self):
