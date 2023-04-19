@@ -28,6 +28,7 @@ def diviseurs(n):
     return [-elt for elt in div] + div #Pour avoir les diviseurs négatifs et positifs
 
 def congru(a,b, mod):
+    """ Renvoie a congru à b modulo mod """
     return modulo(a, mod) == modulo(b, mod)
 
 
