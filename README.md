@@ -17,7 +17,7 @@ Work In Progress
 
 Plusieurs projets en cours :
 * Graph (commencement)
-* HydreDeLerne (jeu en cours de dévellopement -> actuellement, interface graphique) 
+* HydreDeLerne (jeu terminé -> interface graphique en création) 
 
 
 Prochainement
