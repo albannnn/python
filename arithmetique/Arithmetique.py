@@ -10,6 +10,7 @@ def divEuclidienne(a,b):
             return 1 + divEuclidienne(a - b, b)
     else: 
         if b < a :
+            ##WIP
             return None
 
 
