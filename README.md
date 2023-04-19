@@ -1,26 +1,27 @@
-#Python Files
-
+Python Files
+==
 *********************
 
-##Introduction
+Introduction
+-
+
+Tous mes projets python. Beaucoup d'implémentations de structures de données.
 
 
-###Tous mes projets python. Beaucoup d'implémentations de structures de données.
-
-
-####Projets Terminés
-
+Projets Terminés
+-
 * Tree
 
-####Work In Progress
-
+Work In Progress
+-
 
 Plusieurs projets en cours :
 * Graph (commencement)
 * HydreDeLerne (jeu en cours de dévellopement -> actuellement, interface graphique)
 
 
-####Prochainement
+Prochainement
+-
 
 * class Arithmetique (outils d'arithmetique -> Congruences, 
 Divisibilité, PGCD et autres)
