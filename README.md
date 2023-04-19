@@ -5,12 +5,13 @@ Introduction
 ==
 
 Tous mes projets python. Beaucoup d'implémentations de structures de données.
-
+Projets Terminés
+-
+* Tree
 Work In Progress
 - 
 
 Plusieurs projets en cours :
-* Tree (en tests)
 * Graph (commencement)
 * HydreDeLerne (jeu en cours de dévellopement -> actuellement, interface graphique)
 
