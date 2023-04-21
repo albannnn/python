@@ -10,16 +10,18 @@ class Tree:
       
     - Condition : Un arbre est vide si et seulement si la racine est non définie
     
-    - Méthodes(23) : 
+    - Méthodes(25) : 
         * Constructeur - Tree(racine, *children)
         * estVide()
         * estFeuille()
+        * getFeuilles()
         * racine()
         * countOfChildren()
         * getChildren()
         * getChildrenRacines()
         * getChild()
         * setChild()
+        * addChild()
         * delChild()
         * setRacine()
         * getEtage()
@@ -72,13 +74,13 @@ class Tree:
         # Axiome
         assert self.estVide() == (self.root == None), "Un arbre non vide a une racine"
 
-    # Impression
+    # Impressions
     def __str__(self, level=0):
         """ Représentation de l'arbre """
         if self.estVide():
             return ''
         result = ''
-        result += '  ' * level + '|' + str(self.racine()) + '\n'
+        result += '  ' * level + '|' + str(self.racine()) + '\n' 
         for child in self.getChildren():
             
             result += child.__str__(level+1)
@@ -123,8 +125,19 @@ class Tree:
 
     def estFeuille(self):
         """ Renvoie True si l'arbre est une feuille False sinon (un arbre ne contenant qu'un seul noeud est une feuille)"""
-        return self.getChildren()[0].estVide()  # un arbre ayant une feuille a au minimum un enfant donc index = 0
-
+        if False in [elt.estVide() for elt in self.getChildren()]:  # un arbre ayant une feuille a au minimum un enfant donc index = 0
+            return False 
+        else:
+            return True
+        
+    def getFeuilles(self):
+        """ Renvoie le nombre de feuilles de l'arbre"""
+        if self.estVide():
+            return 0
+        if self.estFeuille():
+            return 1
+        else:
+            return sum([elt.getFeuilles() for elt in self.getChildren()])
     def racine(self):
         """ Renvoie la valeur de la racine"""
         return self.root
@@ -152,25 +165,31 @@ class Tree:
                 return self.children[index]
             else:
                 return None
+            
     def getChildIndex(self, child):
+        """ Renvoie l'indice de l'enfant donné """
         for i in range(len(children := self.getChildren())):
             if children[i] == child:
                 return i
 
     def setChild(self, value, index = -1):
         """ Ne renvoie rien, change la valeur d'un enfant de l'arbre à l'indiex indiqué"""
-        assert type(value) == type(self)(), 'Vous devez mettre un arbre comme valeur'        
-        if (index > (len(self.getChildren()) - 1)) or (index == -1):
-            self.children.append(value)
-        else:
-            self.children[index] == value
+        assert type(value) == type(self), 'Vous devez mettre un arbre comme valeur'        
+        self.children[index] = value
+
+    def addChild(self, value):
+        """ Ajoute un enfant à l'arbre """
+        assert type(value) == type(self), 'Vous devez mettre un arbre comme valeur'
+        self.children.append(value)
 
     def delChild(self, delete):
         """ Supprime un enfant de l'arbre passé en args"""
         assert self.nodeInTree(delete), "Pour supprimer un enfant, il doit être dans l'arbre"
-        for i in range(len(self.getChildren())):
-            if self.children[i] == delete:
-                self.children[i] == type(self)()
+        index = 0
+        for elt in self.getChildren():
+            if elt == delete:
+                self.children.pop(index)
+            index += 1
 
     def delChildIndex(self, index):
         try:
@@ -243,7 +262,7 @@ class Tree:
             # arite de chaque noeuds -> noeud.arite() ;  arite du noeud actuel  -> len(l)
             listArite = [elt.arite() for elt in self.getChildren()]
             return max(max(listArite), len(listArite))
-
+    
     # Parcours
     def DFS(self):
         """ Renvoie une liste du parcours en profondeur de l'arbre : `Depth First Search` """
@@ -271,29 +290,4 @@ class Tree:
                     fileFIFO.insert(0, enfant)
         return listeFinale
 
-"""
-#TESTS
 
-# Exemple d'arbre
-arbre = Tree(4, Tree(2, Tree(5), Tree(6), Tree(8), Tree(9), Tree(90)), Tree(
-    12, Tree(25), Tree(32)), Tree(22, Tree(88, Tree(66), Tree(10, Tree(3))), Tree(56)))
-# print(arbre)
-arbre2 = Tree(4, Tree(2, Tree(5), Tree(6), Tree(8), Tree(9), Tree(90)), Tree(
-    12, Tree(25), Tree(32)), Tree(22, Tree(88, Tree(66), Tree(10, Tree(3))), Tree(56)))
-arbre3 = Tree(2, Tree(5), Tree(6), Tree(8), Tree(9), Tree(90))
-arbre4 = Tree(5, arbre3, arbre2)
-print("---- tests d'opérateurs ----")
-print(arbre == arbre2)
-print(arbre2 == arbre3)
-print(arbre > arbre2)
-print(arbre >= arbre2)
-print(arbre3 <= arbre2)
-print(arbre.getChildren()[0] == arbre3)
-
-print("---- tests de parents ----")
-print(arbre4.parent(arbre3) == arbre4)
-print(arbre4)
-print(arbre4.DFS())
-print(arbre4.parent(arbre3))
-# print(arbre.nodeInTree(Tree(5)))
-"""
