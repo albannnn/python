@@ -23,7 +23,7 @@ Plusieurs projets en cours :
 Prochainement
 -
 
-* class Arithmetique (outils d'arithmetique -> Congruences, 
+* Outils d'arithmetique (outils d'arithmetique -> Congruences, 
 Divisibilité, PGCD et autres)
 * class Matrice (implémentation de matrice -> Diagonalisation, Identité, Déterminant et autres) 
 
