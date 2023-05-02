@@ -48,8 +48,8 @@ def main(hydre):
         print(hydre)
         toCut = input("Quelle tête voulez vous couper ? (Vous pouvez aussi abandonner en écrivant 'abandonner'):")
         if toCut == 'Devenir Hercule':
-            hydre.role = 'Hercule'
- 
+            hydre.devenirHercule()
+        
         elif toCut == 'abandonner':
             running = False
             break
