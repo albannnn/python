@@ -1,3 +1,4 @@
+#code by @albannnn
 from Tree import Tree #import de la classe Tree
 import random
 class Hydre(Tree):
