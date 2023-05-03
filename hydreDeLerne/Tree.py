@@ -1,3 +1,4 @@
+#vode by @albannnn
 # CLASS TREE
 # extension de la classe BinTree �tous les types d'arbres
 class Tree:
