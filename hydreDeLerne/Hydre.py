@@ -1,4 +1,3 @@
-#code by @albannnn
 from Tree import Tree #import de la classe Tree
 import random
 class Hydre(Tree):
@@ -8,7 +7,7 @@ class Hydre(Tree):
     Pour la tuer il ne doit rester aucune tête, en êtes vous capables?
     Vous disposez de plusieurs méthodes pour tuer l'hydre:
         - Couper une tête : couper(tete)
-        - Etat de l'hydre : etat()
+        - Etat de l'hydre : etat 
         - Pour visualiser l'hydre : print()
         
     """
@@ -17,22 +16,27 @@ class Hydre(Tree):
         Tree.__init__(self, racine, *children)
         self.etat = "alive"
         self.nombreTetes = self.getFeuilles()
-        self.role = "utilisateur"
+        self.role = 0
         self.nombreCoups = 0
     def __repr__(self):
         return f"<Hydre object root = {self.racine()}>"
     
     
-    def testVictoire(self):
-        """ Renvoie True si l'hydre n'a plus de têtes (si elle morte ...) """ 
+    def changeEtat(self):
+        """  Change l'etat de l'hydre -> si il lui reste des têtes : 'alive' sinon : 'dead' """ 
         if False in [elt.estVide() for elt in self.getChildren()] or self.nombreTetes > 1:
             self.etat = 'alive'
         else:
             self.etat = 'dead'
-            
+
+    def testVictoire(self):
+        """ Renvoie True si l'hydre n'a plus de têtes (si elle morte ...) """
+        return self.etat == "dead"
+    
     def victoire(self):
         """ Renvoie un message de victoire """
         return f" Bravo vous avez battu l'Hydre en {self.nombreCoups} coups !!"
+    
     def defaite(self):
         """ Renvoie un message de défaite"""
         return "Vous avez perdu, retentez une prochaine fois !"
@@ -55,8 +59,7 @@ class Hydre(Tree):
         
 
         #si le joueur est hercule il n'a pas besoin de faire d'effort et gagne directement
-        if self.role == "Hercule": # Si le role du joueur est hercule
-            self.etat = "dead"
+        if self.estHercule(): # Si le role du joueur est hercule
             return None
         
 
@@ -88,7 +91,6 @@ class Hydre(Tree):
             tempHydre = self.parent(tempHydre)
             for i in range(self.nombreCoups):
                 tempHydre.addChild(Hydre('nouveau'))
-
         self.nombreTetes = self.getFeuilles()    
         self.rename()
         
@@ -108,8 +110,13 @@ class Hydre(Tree):
                     pile.append(enfant)
         self.setRacine("corps") #on gére le cas de la racine, cette derniere prendra la valuer 'cou' or c'est le corps de l'hydre
     
+    def estHercule(self):
+        return self.role == 1
+    
     def devenirHercule(self):
-        self.role = "Hercule"
+        self.role = 1
+        self.etat = "dead"
+        self.nombreTetes = 0
         print("Vous avez reçu un arc et une massue.")
         return None
     
@@ -119,5 +126,6 @@ hydre = Hydre(1,
               Hydre(8, Hydre(9), Hydre(10)),
               Hydre(11, Hydre(12, Hydre(13), Hydre(14, Hydre(15))), Hydre(16)),
               Hydre(17))
+
     
 

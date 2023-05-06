@@ -1,4 +1,3 @@
-#vode by @albannnn
 # CLASS TREE
 # extension de la classe BinTree �tous les types d'arbres
 class Tree:
@@ -11,7 +10,7 @@ class Tree:
       
     - Condition : Un arbre est vide si et seulement si la racine est non définie
     
-    - Méthodes(25) : 
+    - Méthodes(26) : 
         * Constructeur - Tree(racine, *children)
         * estVide()
         * estFeuille()
@@ -33,6 +32,7 @@ class Tree:
         * arite()
         * BFS()
         * DFS()
+        *__repr__()
         * __str__()
     
     - Surcharge de plusieurs opérateurs :
@@ -86,7 +86,8 @@ class Tree:
             
             result += child.__str__(level+1)
         return result
-    
+    def __repr__(self):
+        return f"<objet Tree : racine = {self.racine()} ; enfants = {self.getChildrenRacines()}"
     
     #Ordre de grandeur 
     def __eq__(self, val):
