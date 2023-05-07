@@ -18,13 +18,13 @@ Work In Progress
 Plusieurs projets en cours :
 * Graph (commencement)
 * HydreDeLerne (jeu terminé -> interface graphique en création) 
-
+* Outils d'arithmetique -> Congruences, 
+Divisibilité, PGCD et autres
 
 Prochainement
 -
 
-* Outils d'arithmetique -> Congruences, 
-Divisibilité, PGCD et autres
+
 * class Matrice (implémentation de matrice -> Diagonalisation, Identité, Déterminant et autres) 
 
 
