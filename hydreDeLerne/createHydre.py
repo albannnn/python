@@ -32,6 +32,10 @@ def createHydre(difficulte):
                             Hydre(8)),
                       Hydre(9, 
                             Hydre(10, 
-                                Hydre(11))))
+                              Hydre(11))))
         hydre.rename()
         return hydre
+    
+hydre = createHydre('difficile')
+print(hydre.hauteur())
+print(hydre)

@@ -205,12 +205,13 @@ class Tree:
     def getEtage(self, n: int) -> list:
         """ Renvoie une liste des enfants de l'arbre à l'étage donné """
         if n == 0:
-            return self
+            return [self]
         else:
-            List = []
+            list = []
             for i in range(len(self.getChildren())):
-                List.append(self.getChildren()[i].getEtage(n - 1))
-                return List 
+                if not self.getChildren()[i].estVide():
+                    list += self.getChildren()[i].getEtage(n - 1)
+            return list
     
     def nodeInTree(self, node):
         """ Renvoie True si `node` est dans l'arbre False sinon
@@ -291,5 +292,18 @@ class Tree:
                 if not enfant.estVide():
                     fileFIFO.insert(0, enfant)
         return listeFinale
-
+tree = Tree(1,
+                      Tree(2),
+                      Tree(3),
+                      Tree(4,
+                            Tree(5)),
+                      Tree(6,
+                            Tree(7),
+                            Tree(8)),
+                      Tree(9, 
+                            Tree(10, 
+                                Tree(11))))
+for i in range(1, tree.hauteur()):
+    print([elt for elt in tree.getEtage(i)])
+    print("\f")
 

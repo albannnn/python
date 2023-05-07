@@ -1,5 +1,7 @@
 from Tree import Tree #import de la classe Tree
 import random
+import pygame
+
 class Hydre(Tree):
     """
     Hercule à du affronter lors du deuxieme de ses douzes travaux l'Hydre de Lerne. 
@@ -12,15 +14,29 @@ class Hydre(Tree):
         
     """
     
-    def __init__(self, racine = None, *children):
+    def __init__(self, racine = None,  *children):
         Tree.__init__(self, racine, *children)
         self.etat = "alive"
         self.nombreTetes = self.getFeuilles()
         self.role = 0
         self.nombreCoups = 0
+        self.surface = None
+
+        
+
     def __repr__(self):
         return f"<Hydre object root = {self.racine()}>"
+    def getSurf(self):
+        """ Renvoie l'attribut surface de l'Hydre """
+        return self.surface
     
+    def setSurf(self, surface:pygame.surface):
+        """ Change l'attribut surface de l'hydre
+            Entrée : objet pygame.Surface
+            --> void
+        """
+        assert type(surface) == pygame.Surface; 'Vous devez entrer un objet pygame Surface'
+        self.surface = surface
     
     def changeEtat(self):
         """  Change l'etat de l'hydre -> si il lui reste des têtes : 'alive' sinon : 'dead' """ 
@@ -38,12 +54,11 @@ class Hydre(Tree):
         return f" Bravo vous avez battu l'Hydre en {self.nombreCoups} coups !!"
     
     def defaite(self):
-        """ Renvoie un message de défaite"""
+        """ Renvoie un message de défaite """
         return "Vous avez perdu, retentez une prochaine fois !"
             
     def couper(self, tete):
-
-
+        """ Action de couper une tête de l'Hydre (void) """
         if not self.nodeInTree(tete):
             listeCorps = ["à la tête",
                           "au pied",
@@ -108,7 +123,7 @@ class Hydre(Tree):
             for enfant in pile.pop().getChildren(): #parcours dfs
                 if not enfant.estVide():
                     pile.append(enfant)
-        self.setRacine("corps") #on gére le cas de la racine, cette derniere prendra la valuer 'cou' or c'est le corps de l'hydre
+        self.setRacine("corps") #on gére le cas de la racine, cette derniere prendra la valeur 'cou' or c'est le corps de l'hydre
     
     def estHercule(self):
         return self.role == 1
