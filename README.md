@@ -17,7 +17,7 @@ Work In Progress
 
 Plusieurs projets en cours :
 * Graph (commencement)
-* HydreDeLerne (jeu terminé -> interface graphique en création) 
+* HydreDeLerne (v1 terminée -> v2 en création) 
 * Outils d'arithmetique -> Congruences, 
 Divisibilité, PGCD et autres
 
